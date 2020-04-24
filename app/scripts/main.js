@@ -1,118 +1,115 @@
-
-// const t0 = performance.now();
-
 const track = document.querySelector('.track');
-const slides = Array.from(track.children);
-
-const images = document.querySelectorAll('.img');
-const img = document.querySelector('.img');
+const slides = document.querySelectorAll('.slide');
 const btnNext = document.querySelector('#next');
 const btnPrev = document.querySelector('#prev');
 
+const slideWidth = slides[0].offsetWidth;
+
+let offset = 0;
 
 
-//arrange the slides next to one enather
-// for (let i = 0; i < slides.length; ++i) {
-//     slides[i].style.position = 'absolute';
-//     slides[i].style.width = '160px';
-//     slides[i].style.height = '160px';
-//   }
-// const slideWidth = slides[0].getBoundingClientRect().width;
-// const setSlidePosition = (slide, index) => {
-//     slide.style.left = slideWidth * index + 'px';
-// }
-// slides.forEach(setSlidePosition);
-
-let i = 0;
-
-
-
-
-// function moveLastToFirstElementInArray(this_array) {
-//     let new_array = new Array();
-//     new_array[0] = this_array[this_array.length - 1]; //first element is last element    
-//     for (let i = 1; i < this_array.length; i++) { //subsequent elements start at 1
-//         new_array[i] = this_array[i - 1];
-//     }
-//     return new_array;
-// }
-
-const moveToSlide = (track, currentSlide, targetSlide) => {
-    track.children.style.transform = 'translateX(' + targetSlide.style.left + ')';
-    currentSlide.classList.remove('current-slide');
-    targetSlide.classList.add('current-slide');
+//METHODS
+//children
+//firstElementChild
+//lastElementChild
+//nextElementSibling
+//previousElementSibling
+//insertBefore
+function btnPoll(btn, time) {
+    btn.disabled = true;
+    setTimeout(function() {
+        btn.disabled = false;
+    }, time);
 }
+
+
+//click right, move slides to right
+btnNext.addEventListener('click', () => {
+
+    const firstSlide = track.children[0];
+    const lastSlide = track.children[track.children.length - 1];
+
+    animaImg(lastSlide, 'right');
+
+    // setTimeout(() => {
+    // lastSlide.remove();
+    // offset = offset + slideWidth;
+    // track.style.transform = 'translateX(' + offset + 'px)';
+    // track.children[0].style.transform = 'translateX(' + offset + 'px)';
+    // track.children[1].style.transform = 'translateX(' + offset + 'px)';
+    // }, 1000);
+
+
+
+
+
+    setTimeout(() => {
+        // offset = 0;
+        // track.style.transform = 'translateX(' + offset + 'px)';
+        // track.children[0].style.transform = 'translateX(' + offset + 'px)';
+        // track.children[1].style.transform = 'translateX(' + offset + 'px)';
+
+        track.insertBefore(lastSlide, firstSlide);
+
+    }, 1000);
+
+    btnPoll(btnNext, 2000);
+
+});
 
 //click left, move slides to left
 btnPrev.addEventListener('click', () => {
-    const currentSlide = track.querySelector('.current-slide');
-    const prevSlide = currentSlide.previousElementSibling;
+    const firstSlide = track.children[0];
+    const lastSlide = track.children[track.children.length - 1];
+    animaImg(firstSlide, 'left');
+    window.setTimeout(() => {
+        track.appendChild(firstSlide, lastSlide);
+    }, 1000)
+    btnPoll(btnPrev, 2000);
 
-    //move to the next slide
-    moveToSlide(track, currentSlide, prevSlide)
 });
 
+const animaImg = (element, direction) => {
 
-btnNext.addEventListener('click', () => {  
-    //children
+    switch (direction) {
+        case 'right':
+            element.animate([
+                { opacity: 1, transform: 'translateX(0%) scale(1)' },
+                { opacity: 0, transform: 'translateX(100%) scale(1.7)' },
+                { opacity: 0, transform: 'translateX(-100%) scale(1.7)' },
+                { opacity: 1, transform: 'translateX(0%) scale(1)' },
+            ], {
+                duration: 2000, //milliseconds
+                easing: 'ease-in-out', //'linear', a bezier curve, etc.
+                delay: 10, //milliseconds
+                iterations: 1, //or a number
+                direction: 'normal', //'normal', 'reverse', etc.
+            })
+            break;
+        case 'left':
+            element.animate([
+                { opacity: 1, transform: 'translateX(0%) scale(1)' },
+                { opacity: 0, transform: 'translateX(-100%) scale(1.7)' },
+                { opacity: 0, transform: 'translateX(100%) scale(1.7)' },
+                { opacity: 1, transform: 'translateX(0%) scale(1)' },
+            ], {
+                duration: 2000, //milliseconds
+                easing: 'ease-in-out', //'linear', a bezier curve, etc.
+                delay: 10, //milliseconds
+                iterations: 1, //or a number
+                direction: 'normal', //'normal', 'reverse', etc.
+            })
+            break;
+        default:
+            console.log('please set the value direction slide \'left\' or \'right\'');
+    }
 
-    //firstElementChild
-    //lastElementChild
+};
 
-    //nextElementSibling
-    //previousElementSibling
-   
-    //insertBefore
-    // console.log(track.children);
-    
-    let firstSlide = track.firstElementChild;
-    let lastSlide = track.lastElementChild;
-
-    console.log(lastSlide);
-    
-
-    //move to the next slide
-    // animaImg(lastSlide);
-
-    // setTimeout(() => {
-    //     slides[i].classList.remove('current-slide');
-    //     i++;
-    //     if (i >= slides.length) {
-    //         i = 0;
-    //     }
-    //     const amountToMove = slides[i].style.left;
-    //     slides[0].style.transform = 'translateX(' + amountToMove + ')';
-    //     slides[1].style.transform = 'translateX(' + amountToMove + ')';
-    //     slides[i].classList.add('current-slide');
-    // }, 500)
- 
-    // setTimeout(() => {
-    //     track.lastElementChild.remove()
-
-    // }, 500)
-
-    
-    track.prepend(lastSlide);
-});
-
-
-
-//1)make function loop 
-
-// const animaImg = (element) => {
-//     element.animate([
-//         { opacity: 1, transform: 'translateX(0%) scale(1.1)' },
-//         { opacity: 0, transform: 'translateX(100%) scale(1.5)' },
-//         { opacity: 0, transform: 'translateX(-100%) scale(1.5)' },
-//         { opacity: 1, transform: 'translateX(0%) scale(1.1)' },
-//     ], {
-//         duration: 2000, //milliseconds
-//         easing: 'ease-in-out', //'linear', a bezier curve, etc.
-//         delay: 10, //milliseconds
-//         iterations: 1, //or a number
-//         direction: 'normal', //'normal', 'reverse', etc.
-//     })
-// }
-
-// const t1 = performance.now();
-// console.log(t1 - t0, 'milliseconds');
+function raf(fn) {
+    window.requestAnimationFrame(function() {
+        window.requestAnimationFrame(function() {
+            fn();
+        })
+    })
+}

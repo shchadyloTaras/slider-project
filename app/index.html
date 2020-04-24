@@ -2,52 +2,62 @@
 <html lang="">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Slider</title>
-  <!-- Place favicon.ico in the root directory -->
-  <!-- build:css styles/main.css -->
-  <link rel="stylesheet" href="styles/main.css">
-  <!-- endbuild -->
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Slider</title>
+    <!-- Place favicon.ico in the root directory -->
+    <!-- build:css styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
 </head>
 
 <body>
-  <div class="slider-wrapper">
-      <button class="btn-prev" id="prev" type="button">
-        <svg class="icon-arrow-left">
-          <use xlink:href="sprites-svg/sprite.svg#arrow-left"></use>
-      </svg>
-      prev
-    </button>
-
-    <div class="img-wrapper">
-      <ul class="track">
-        <div class="img img--white current-slide">
-          <div class="boy"></div>
-        </div>
-        <div class="img two-slide">
-          <div class="happy-boy "></div>
-        </div>
-        <div class="img img--white current-slide">
-          <div class="boy"></div>
-        </div>
-        <div class="img three-slide">
-          <div class="happy-boy"></div>
-        </div>
-      </ul>
+    <!-- <div class="wrapper">
+        <div class="abc">One</div>
+        <div class="abc">Two</div>
+        <div class="abc">Three</div>
     </div>
+    <button id="reorder" type="button">Reorder</button>
+    <button id="unreorder" type="button">Unreorder</button> -->
+    <div class="slider-wrapper">
+        <button class="btn-prev" id="prev" type="button">
+            <svg class="icon-arrow-left">
+                <use xlink:href="sprites-svg/sprite.svg#arrow-left"></use>
+            </svg>
+            prev
+        </button>
+
+        <div class="slider">
+            <div class="track">
+                <div class="slide">
+                    <div class="circle circle--white">
+                        <img src="./images/boy.png" alt="boy image">
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="circle">
+                        <img src="./images/happy-boy.png" alt="boy image">
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="circle">
+                        <img src="./images/happy-boy.png" alt="boy image">
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
-      <button class="btn-next" id="next" type="button">
-        next
-        <svg class="icon-arrow-right">
-          <use xlink:href="sprites-svg/sprite.svg#arrow-right"></use>
-        </svg>
-      </button>
-      
-  </div>
-  <script src="scripts/main.js"></script>
+        <button class="btn-next" id="next" type="button">
+            next
+            <svg class="icon-arrow-right">
+                <use xlink:href="sprites-svg/sprite.svg#arrow-right"></use>
+            </svg>
+        </button>
+
+    </div>
+    <script src="scripts/main.js"></script>
 </body>
 
 </html>
